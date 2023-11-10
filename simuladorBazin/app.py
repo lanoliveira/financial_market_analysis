@@ -1,4 +1,5 @@
 import warnings
+import time
 import pandas as pd
 import streamlit as st
 from sqlalchemy import create_engine
@@ -18,8 +19,11 @@ class App():
         # engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/postgres") # local
         engine = create_engine("postgresql+psycopg2://postgres:postgres@postgres/postgres") # docker
 
-        # self.dataset = pd.read_csv("./data/companies_treated.csv", delimiter = ';').rename(columns={'empresa' : 'Empresa','cotacao' : 'Cotação','dividend_yield' : 'DY','liquidez_media_diaria' : 'Liquidez Média Diaria','divida_liquida/ebitda' : 'Dívida Líquida/Ebitda','divida_liquida/patrimonio' : 'Dívida Líquida/Patrimônio','setor': 'Setor','rent_mes' : '1 Mês Atrás','rent_3_meses' : '3 Mêses Atrás','rent_1_ano' : 'Último 1 Ano','rent_2_anos' : 'Último 2 Anos','rent_5_anos' : 'Último 5 Anos','rent_10_anos' : 'Últimos 10 Anos','p/l' : 'P/L','p/vp' : 'P/VP','ev/ebitda' : 'EV/EBITDA','ev/ebit' : 'EV/EBIT','p/ebitda' : 'P/EBITDA','p/ebit' : 'P/EBIT','margem_liquida' : 'Margem Líquida','margem_bruta' : 'Margem Bruta','margem_ebit' : 'Margem Ebit','margem_ebitda' : 'Margem Ebitda','divida_liquida/ebit' : 'Dívida Líquida/Ebit','divida_bruta/patrimonio' : 'Dívida Bruta/Patrimônio','roe' : 'ROE','roic' : 'ROIC','roa' : 'ROA','cagr_receitas_5_anos' : 'CAGR Receita 5 Anos','cagr_lucros_5_anos' : 'CAGR Lucro 5 Anos','valor_mercado' : 'Valor Mercado'})
-        
+        empty = True
+        while empty:
+            empty = pd.read_sql("SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = 'public'", con=engine).empty
+            time.sleep(10)
+
         self.dataset = pd.read_sql('SELECT * FROM companies', con=engine) \
             .rename(columns={'empresa' : 'Empresa','cotacao' : 'Cotação','dividend_yield' : 'DY','liquidez_media_diaria' : 'Liquidez Média Diaria','divida_liquida/ebitda' : 'Dívida Líquida/Ebitda','divida_liquida/patrimonio' : 'Dívida Líquida/Patrimônio','setor': 'Setor','rent_mes' : '1 Mês Atrás','rent_3_meses' : '3 Mêses Atrás','rent_1_ano' : 'Último 1 Ano','rent_2_anos' : 'Último 2 Anos','rent_5_anos' : 'Último 5 Anos','rent_10_anos' : 'Últimos 10 Anos','p/l' : 'P/L','p/vp' : 'P/VP','ev/ebitda' : 'EV/EBITDA','ev/ebit' : 'EV/EBIT','p/ebitda' : 'P/EBITDA','p/ebit' : 'P/EBIT','margem_liquida' : 'Margem Líquida','margem_bruta' : 'Margem Bruta','margem_ebit' : 'Margem Ebit','margem_ebitda' : 'Margem Ebitda','divida_liquida/ebit' : 'Dívida Líquida/Ebit','divida_bruta/patrimonio' : 'Dívida Bruta/Patrimônio','roe' : 'ROE','roic' : 'ROIC','roa' : 'ROA','cagr_receitas_5_anos' : 'CAGR Receita 5 Anos','cagr_lucros_5_anos' : 'CAGR Lucro 5 Anos','valor_mercado' : 'Valor Mercado'})
         
