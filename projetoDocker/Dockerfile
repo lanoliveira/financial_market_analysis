@@ -11,22 +11,3 @@ COPY . ./
 EXPOSE 5432
 
 CMD ["python","main.py"]
-
-# FROM python:3.11.6
-
-# WORKDIR /projetoDocker
-# COPY requirements.txt requirements.txt
-# RUN apt update
-# RUN python -m pip install --upgrade pip setuptools wheel
-# RUN python -m pip install -r requirements.txt
-
-# COPY . ./
-
-# COPY entrypoint.sh /app/
-# RUN chmod +x /app/entrypoint.sh
-
-# EXPOSE 8501
-
-# CMD ["./entrypoint.sh"]
-
-
