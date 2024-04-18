@@ -8,7 +8,7 @@
     
     docker build --tag streamlit .
 
-3º passo - Cria o container do projeto (é necessário estar no diretório do projetoFinal):
+3º passo - Cria o container do projeto (é necessário estar no diretório do financial_market_analysis):
     
     docker compose up --build
 
